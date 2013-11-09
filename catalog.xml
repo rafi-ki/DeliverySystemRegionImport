@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/D:/Uni/5.Semester/ProgrammeJava/DeliverySystemTests/../../Software%20Komponentensysteme/Aufgabenstellungen/Übung%205/RegionImportShema.xsd" uri="src/conf/xml-resources/jaxb/regionimport/RegionImportShema.xsd"/>
+</catalog>
