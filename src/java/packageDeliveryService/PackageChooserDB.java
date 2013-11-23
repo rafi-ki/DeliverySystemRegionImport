@@ -28,11 +28,11 @@ import org.skspackage.schema._2013.deliveryservice.Package;
  */
 public class PackageChooserDB implements PackageChooser{
     
-    private Logger LOGGER = Logger.getLogger(PackageChooserDB.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PackageChooserDB.class.getName());
     
-    private EntityManager entityManager;
-    private DirectedPackageRepository packageRepo;
-    private DeliveryRegionRepository devRepo;
+    private final EntityManager entityManager;
+    private final DirectedPackageRepository packageRepo;
+    private final DeliveryRegionRepository devRepo;
     public PackageChooserDB(EntityManager entityManager)
     {
         this.entityManager = entityManager;
@@ -51,19 +51,26 @@ public class PackageChooserDB implements PackageChooser{
             
             for(DirectedPackage curPack : packagesByRegion)
             {
-                Package newPackage = new Package();
-                QName name = new QName("", "");
-                Address address = new Address();
-                address.setCity(new JAXBElement<String>(name, String.class, curPack.getCity()));
-//                address.setCountry(new JAXBElement<String>(name, String.class, curPack.get));
-                address.setPostalCode(new JAXBElement<String>(name, String.class, curPack.getPostalcode()));
-                address.setStreet(new JAXBElement<String>(name, String.class, curPack.getStreet()));
-                JAXBElement<Address> elem = new JAXBElement<Address>(name, Address.class, address);
-                newPackage.setAddress(elem);
-                
-                System.out.println(curPack.getCity() + ", " + curPack.getStreet());
-                p.add(newPackage); // add package at the end
+                if (!curPack.isDelivered())
+                {
+                    Package newPackage = new Package();
+                    //TODO old
+                    QName name = new QName("City");
+                    Address address = new Address();
+                    address.setCity(new JAXBElement<>(name, String.class, curPack.getCity()));
+                    name = new QName("PostalCode");
+                    address.setPostalCode(new JAXBElement<>(name, String.class, curPack.getPostalcode()));
+                    name = new QName("Street");
+                    address.setStreet(new JAXBElement<>(name, String.class, curPack.getStreet()));
+                    name = new QName("Address");
+                    newPackage.setAddress(new JAXBElement<>(name, Address.class, address));
+                    p.add(newPackage); // add package at the end
+                    
+                    packageRepo.setPackageAsDelivered(curPack.getId());
+                }
             }
+            
+            LOGGER.info("added packages by region successfully");
         } catch(RepositoryException re)
         {
             LOGGER.log(Level.SEVERE, "Could not get list of Packages by specific region", re);
