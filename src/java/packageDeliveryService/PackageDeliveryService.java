@@ -31,5 +31,11 @@ public class PackageDeliveryService {
         return allPackages;
 //        throw new UnsupportedOperationException("Not implemented yet.");
     }
-    
+
+    /**
+     * Web service operation
+     */
+    public void addPackage(org.skspackage.schema._2013.deliveryservice.Package pack) {
+        System.out.println("this method will add specific package");
+    }
 }
