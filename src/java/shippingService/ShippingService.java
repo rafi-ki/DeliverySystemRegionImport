@@ -9,6 +9,10 @@ package shippingService;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import shippingService.util.PackageSorterFake;
 
 /**
  *
@@ -23,6 +27,9 @@ public class ShippingService {
     @WebMethod(operationName = "addPackage")
     public void addPackage(@WebParam(name = "package") org.skspackage.schema._2013.deliveryservice.Package pack) 
     {
-        System.out.println("bla");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("deliverysystem");
+        EntityManager entityManager = factory.createEntityManager();
+        AddPackageService addPackageService = new AddPackageServiceDB(entityManager, new PackageSorterFake(entityManager));
+        addPackageService.addPackage(pack);
     }
 }

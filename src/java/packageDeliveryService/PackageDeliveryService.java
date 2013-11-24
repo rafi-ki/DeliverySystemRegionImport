@@ -21,21 +21,12 @@ import org.skspackage.schema._2013.deliveryservice.Package;
 public class PackageDeliveryService {
 
     public org.skspackage.schema._2013.deliveryservice.ArrayOfPackage getPackagesForRegion(java.lang.String regionKey) {
-        //TODO implement this method
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("deliverysystem");
         EntityManager entityManager = factory.createEntityManager();
         PackageChooser chooser = new PackageChooserDB(entityManager);
         ArrayOfPackage allPackages = new ArrayOfPackage();
-        List<Package> result = null;
-        result = chooser.getDevileredPackageByRegion(regionKey, allPackages.getPackage());
+        chooser.getDevileredPackageByRegion(regionKey, allPackages.getPackage());
         return allPackages;
 //        throw new UnsupportedOperationException("Not implemented yet.");
-    }
-
-    /**
-     * Web service operation
-     */
-    public void addPackage(org.skspackage.schema._2013.deliveryservice.Package pack) {
-        System.out.println("this method will add specific package");
     }
 }
