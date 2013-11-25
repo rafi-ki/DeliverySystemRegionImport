@@ -24,8 +24,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.skspackage.schema._2013.deliveryservice.Address;
-import org.skspackage.schema._2013.deliveryservice.Package;
+import org.skspackage.schema._2013.shippingservice.Address;
+import org.skspackage.schema._2013.shippingservice.Package;
 import shippingService.util.PackageSorterFake;
 
 /**

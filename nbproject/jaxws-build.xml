@@ -10,23 +10,6 @@
                 JAX-WS WSGEN SECTION
                 ===================
             -->
-    <target name="wsgen-init" depends="init, -do-compile">
-        <mkdir dir="${build.generated.sources.dir}/jax-ws/resources/"/>
-        <mkdir dir="${build.classes.dir}"/>
-        <mkdir dir="${build.classes.dir}/META-INF"/>
-        <property name="j2ee.platform.wsgen.classpath" value="${libs.jaxws21.classpath}"/>
-        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
-            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
-        </taskdef>
-    </target>
-    <target name="wsgen-ShippingService" depends="wsgen-init">
-        <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-shippingService.ShippingService.xml"/>
-        </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="shippingService.ShippingService" xendorsed="true">
-            <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
-        </wsgen>
-    </target>
     <!--
                 ===================
                 JAX-WS WSIMPORT SECTION
@@ -62,5 +45,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/org/skspackage/_2013/deliveryservice"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/PackageDeliveryService"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-PackageDeliveryService, wsimport-init"/>
+    <target name="wsimport-service-ShippingService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ShippingService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ShippingService" destdir="${build.generated.dir}/jax-wsCache/service/ShippingService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ShippingService/wsdl/ShippingService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ShippingService/wsdl/ShippingService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ShippingService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ShippingService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ShippingService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ShippingService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ShippingService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/skspackage/_2013/shippingservice"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ShippingService"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-PackageDeliveryService, wsimport-service-ShippingService"/>
 </project>

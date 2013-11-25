@@ -15,8 +15,8 @@ import com.mycompany.deliverysystem.repositories.RepositoryException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
-import org.skspackage.schema._2013.deliveryservice.Address;
-import org.skspackage.schema._2013.deliveryservice.Package;
+import org.skspackage.schema._2013.shippingservice.Address;
+import org.skspackage.schema._2013.shippingservice.Package;
 import shippingService.util.PackageSorter;
 
 /**
@@ -43,7 +43,6 @@ public class AddPackageServiceDB implements AddPackageService{
     @Override
     public void addPackage(Package p) {
         DirectedPackage newPackage = new DirectedPackage();
-        
         Address address = p.getAddress().getValue();
         newPackage.setCity(address.getCity().getValue());
         newPackage.setStreet(address.getStreet().getValue());

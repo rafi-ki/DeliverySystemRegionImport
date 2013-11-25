@@ -7,8 +7,6 @@
 package shippingService;
 
 import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -18,18 +16,14 @@ import shippingService.util.PackageSorterFake;
  *
  * @author rafael
  */
-@WebService(serviceName = "ShippingService")
+@WebService(serviceName = "ShippingService", portName = "BasicHttpBinding_IShippingService", endpointInterface = "org.skspackage._2013.shippingservice.IShippingService", targetNamespace = "http://sksPackage.org/2013/ShippingService", wsdlLocation = "WEB-INF/wsdl/ShippingService/ShippingService.wsdl")
 public class ShippingService {
 
-    /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "addPackage")
-    public void addPackage(@WebParam(name = "package") org.skspackage.schema._2013.deliveryservice.Package pack) 
-    {
+    public void addPackage(org.skspackage.schema._2013.shippingservice.Package _package) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("deliverysystem");
         EntityManager entityManager = factory.createEntityManager();
         AddPackageService addPackageService = new AddPackageServiceDB(entityManager, new PackageSorterFake(entityManager));
-        addPackageService.addPackage(pack);
+        addPackageService.addPackage(_package);
     }
+    
 }

@@ -11,5 +11,5 @@ package shippingService;
  * @author rafael
  */
 public interface AddPackageService {
-    public void addPackage(org.skspackage.schema._2013.deliveryservice.Package p);
+    public void addPackage(org.skspackage.schema._2013.shippingservice.Package p);
 }

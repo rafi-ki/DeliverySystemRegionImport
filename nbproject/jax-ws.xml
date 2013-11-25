@@ -35,6 +35,35 @@
     </service>
     <service name="ShippingService">
       <implementation-class>shippingService.ShippingService</implementation-class>
+      <wsdl-url>file:/D:/Uni/5.Semester/Software%20Komponentensysteme/Aufgabenstellungen/Übung%207/ShippingService.wsdl</wsdl-url>
+      <local-wsdl-file>ShippingService.wsdl</local-wsdl-file>
+      <service-name>ShippingService</service-name>
+      <port-name>BasicHttpBinding_IShippingService</port-name>
+      <package-name>org.skspackage._2013.shippingservice</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
     </service>
   </services>
   <clients/>
