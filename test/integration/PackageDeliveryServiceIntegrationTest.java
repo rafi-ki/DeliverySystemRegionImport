@@ -39,7 +39,7 @@ import org.w3c.dom.Node;
 
 /**
  *
- * @author rafael,domink
+ * @author rafael,dominik
  */
 public class PackageDeliveryServiceIntegrationTest {
     
@@ -73,6 +73,7 @@ public class PackageDeliveryServiceIntegrationTest {
         dp.setStreet(TEST_STREET);
         dp.setCity(TEST_CITY);
         dp.setPostalcode(TEST_POSTAL);
+        dp.setDelivered(false);
         
         DirectedPackage dp2 = new DirectedPackage();
         dp2.setDeliveryRegion(region);
@@ -80,6 +81,7 @@ public class PackageDeliveryServiceIntegrationTest {
         dp2.setCity(TEST_CITY);
         dp2.setStreet(TEST_STREET);
         dp2.setPostalcode(TEST_POSTAL);
+        dp2.setDelivered(false);
         
         DeliveryRegion region2 = new DeliveryRegion();
         region2.setExternal_id("FalseRegion");
@@ -87,7 +89,7 @@ public class PackageDeliveryServiceIntegrationTest {
         DirectedPackage falsedp = new DirectedPackage();
         falsedp.setDeliveryRegion(region2);
         falsedp.setId(Integer.MAX_VALUE - 2);
-        
+        falsedp.setDelivered(false);
         devRepo.add(region);
         devRepo.add(region2);
         
