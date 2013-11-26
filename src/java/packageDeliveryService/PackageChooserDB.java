@@ -75,6 +75,7 @@ public class PackageChooserDB implements PackageChooser{
             LOGGER.log(Level.SEVERE, "Could not get list of Packages by specific region", re);
         }
         
+        
         return p;
     }
 }

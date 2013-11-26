@@ -125,9 +125,9 @@ public class PackageDeliveryServiceIntegrationTest {
         // Send SOAP Message to SOAP Server
         String url = "http://localhost:8080/DeliverySystemRegionImport/PackageService";
         SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(), url);
-         printSOAPResponse(soapResponse);
         soapConnection.close();
-
+         printSOAPResponse(soapResponse);
+         
         boolean gotRightAnswer = hasTwoPackages(soapResponse);
         
         //assert
