@@ -68,7 +68,7 @@ public class ShippingServiceIntegrationTest {
             }
         }
         
-        if (idToDelete > 0) // just delete if found
+        if (idToDelete > 0) // just delete if 
             packageRepo.delete(idToDelete);
     }
     

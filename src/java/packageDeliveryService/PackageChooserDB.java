@@ -42,7 +42,6 @@ public class PackageChooserDB implements PackageChooser{
 
     @Override
     public List<Package> getDevileredPackageByRegion(String externalId, List<Package> p) {
-        
         try{
             DeliveryRegion region = devRepo.getByExternalId(externalId);
 
