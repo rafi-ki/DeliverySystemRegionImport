@@ -29,7 +29,7 @@ import org.skspackage.schema._2013.deliveryservice.Package;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class PackageChooserDBTest {
     private static EntityManager entityManager;

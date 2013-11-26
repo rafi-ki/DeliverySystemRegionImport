@@ -21,7 +21,7 @@ import shippingService.util.PackageSorter;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class AddPackageServiceDB implements AddPackageService{
 

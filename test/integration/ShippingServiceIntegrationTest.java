@@ -32,7 +32,7 @@ import org.junit.Test;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class ShippingServiceIntegrationTest {
     

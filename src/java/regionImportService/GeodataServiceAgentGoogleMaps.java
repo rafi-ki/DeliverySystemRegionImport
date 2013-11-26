@@ -26,7 +26,7 @@ import org.w3c.dom.NodeList;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class GeodataServiceAgentGoogleMaps implements GeodataServiceAgent{
     private static Logger LOGGER = Logger.getLogger(GeodataServiceAgentGoogleMaps.class.getName());

@@ -17,7 +17,7 @@ import regionImportService.GeodataServiceAgentGoogleMaps;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class GeodataServiceAgentGoogleMapsTests {
     

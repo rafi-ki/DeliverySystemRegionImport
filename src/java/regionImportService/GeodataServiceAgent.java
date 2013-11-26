@@ -8,7 +8,7 @@ package regionImportService;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public interface GeodataServiceAgent {
     public double[] encodeCoordinates(String street, String postal, String city);

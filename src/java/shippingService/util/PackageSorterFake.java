@@ -18,7 +18,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class PackageSorterFake implements PackageSorter{
 

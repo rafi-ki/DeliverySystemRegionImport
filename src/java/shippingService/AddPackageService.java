@@ -8,7 +8,7 @@ package shippingService;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public interface AddPackageService {
     public void addPackage(org.skspackage.schema._2013.shippingservice.Package p);

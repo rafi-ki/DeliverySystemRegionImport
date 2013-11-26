@@ -30,7 +30,7 @@ import shippingService.util.PackageSorterFake;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class AddPackageServiceDBTest {
     

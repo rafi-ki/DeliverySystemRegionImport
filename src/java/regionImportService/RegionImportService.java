@@ -20,7 +20,7 @@ import javax.persistence.Persistence;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class RegionImportService {
     private GeodataServiceAgent agentSmith;

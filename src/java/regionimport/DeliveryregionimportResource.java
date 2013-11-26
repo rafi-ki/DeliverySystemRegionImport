@@ -22,7 +22,7 @@ import regionImportService.RegionImportService;
 /**
  * REST Web Service
  *
- * @author rafael
+ * @author rafael,dominik
  */
 @Path("import")
 public class DeliveryregionimportResource {

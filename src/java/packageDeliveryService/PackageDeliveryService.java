@@ -15,7 +15,7 @@ import org.skspackage.schema._2013.deliveryservice.ArrayOfPackage;
 import org.skspackage.schema._2013.deliveryservice.Package;
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 @WebService(serviceName = "PackageService", portName = "Soap_DeliveryService", endpointInterface = "org.skspackage._2013.deliveryservice.DeliveryService", targetNamespace = "http://sksPackage.org/2013/DeliveryService", wsdlLocation = "WEB-INF/wsdl/PackageDeliveryService/deliveryservice.wsdl")
 public class PackageDeliveryService {

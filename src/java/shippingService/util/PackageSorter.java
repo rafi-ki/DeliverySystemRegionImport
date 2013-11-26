@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public interface PackageSorter {
     public void sortPackage(DirectedPackage pack);

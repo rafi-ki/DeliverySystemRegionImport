@@ -14,7 +14,7 @@ import shippingService.util.PackageSorterFake;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 @WebService(serviceName = "ShippingService", portName = "BasicHttpBinding_IShippingService", endpointInterface = "org.skspackage._2013.shippingservice.IShippingService", targetNamespace = "http://sksPackage.org/2013/ShippingService", wsdlLocation = "WEB-INF/wsdl/ShippingService/ShippingService.wsdl")
 public class ShippingService {

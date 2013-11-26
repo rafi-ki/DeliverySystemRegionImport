@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public interface PackageChooser {
     public List<org.skspackage.schema._2013.deliveryservice.Package> getDevileredPackageByRegion(String regionId, List<org.skspackage.schema._2013.deliveryservice.Package> p);
