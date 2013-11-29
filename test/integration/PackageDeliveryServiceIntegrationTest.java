@@ -43,19 +43,29 @@ import org.w3c.dom.Node;
  */
 public class PackageDeliveryServiceIntegrationTest {
     
-    private static EntityManager entityManager;
-    private static DirectedPackageRepository packageRepo;
-    private static DeliveryRegionRepository devRepo;
+    private EntityManager entityManager;
+    private DirectedPackageRepository packageRepo;
+    private DeliveryRegionRepository devRepo;
     
-    private static final String TEST_CITY = "city for test";
-    private static final String TEST_STREET = "street for test";
-    private static final String TEST_POSTAL = "postalcode for test";
+    private final String TEST_CITY = "city for test";
+    private final String TEST_STREET = "street for test";
+    private final String TEST_POSTAL = "postalcode for test";
     
     public PackageDeliveryServiceIntegrationTest() {
     }
     
     @BeforeClass
     public static void setUpClass() throws RepositoryException{
+        
+    }
+    
+    @AfterClass
+    public static void tearDownClass() throws RepositoryException{
+        
+    }
+    
+    @Before
+    public void setUp() throws RepositoryException{
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("deliverysystem");
         entityManager = factory.createEntityManager();
         packageRepo = new DirectedPackageRepositoryDB(entityManager);
@@ -98,22 +108,14 @@ public class PackageDeliveryServiceIntegrationTest {
         packageRepo.add(falsedp);
     }
     
-    @AfterClass
-    public static void tearDownClass() throws RepositoryException{
+    @After
+    public void tearDown() throws RepositoryException{
         packageRepo.delete(Integer.MAX_VALUE);
         packageRepo.delete(Integer.MAX_VALUE -1);
         packageRepo.delete(Integer.MAX_VALUE -2);
         
         devRepo.delete(Integer.MAX_VALUE);
         devRepo.delete(Integer.MAX_VALUE -1);
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
     }
 
      @Test
