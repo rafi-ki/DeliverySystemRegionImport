@@ -10,7 +10,7 @@ import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import shippingService.util.PackageSorterFake;
+import shippingService.util.PackageSorterNearest;
 
 /**
  *
@@ -22,8 +22,7 @@ public class ShippingService {
     public void addPackage(org.skspackage.schema._2013.shippingservice.Package _package) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("deliverysystem");
         EntityManager entityManager = factory.createEntityManager();
-        AddPackageService addPackageService = new AddPackageServiceDB(entityManager, new PackageSorterFake(entityManager));
+        AddPackageService addPackageService = new AddPackageServiceDB(entityManager, new PackageSorterNearest(entityManager));
         addPackageService.addPackage(_package);
     }
-    
 }

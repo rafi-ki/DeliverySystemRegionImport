@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.skspackage.schema._2013.shippingservice.Address;
 import org.skspackage.schema._2013.shippingservice.Package;
+import regionImportService.GeodataServiceAgentGoogleMaps;
 import shippingService.util.PackageSorter;
 
 /**
@@ -32,12 +33,15 @@ public class AddPackageServiceDB implements AddPackageService{
     private final DeliveryRegionRepository devRepo;
     private PackageSorter sorter;
     
+    private GeodataServiceAgentGoogleMaps locationService;
+    
     public AddPackageServiceDB(EntityManager entityManager, PackageSorter sorter)
     {
         this.entityManager = entityManager;
         this.packageRepo = new DirectedPackageRepositoryDB(entityManager);
         this.devRepo = new DeliveryRegionRepositoryDB(entityManager);
         this.sorter = sorter;
+        this.locationService = new GeodataServiceAgentGoogleMaps();
     }
     
     @Override
@@ -48,7 +52,9 @@ public class AddPackageServiceDB implements AddPackageService{
         newPackage.setStreet(address.getStreet().getValue());
         newPackage.setPostalcode(address.getPostalCode().getValue());
         
-        sorter.sortPackage(newPackage);
+        double[] packageLocation = locationService.encodeCoordinates(address.getStreet().getValue(), address.getPostalCode().getValue(), address.getCity().getValue());
+        
+        sorter.sortPackage(newPackage, packageLocation);
         
         try{
             packageRepo.add(newPackage);

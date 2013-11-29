@@ -11,48 +11,39 @@ import com.mycompany.deliverysystem.entities.DirectedPackage;
 import com.mycompany.deliverysystem.repositories.DeliveryRegionRepository;
 import com.mycompany.deliverysystem.repositories.DeliveryRegionRepositoryDB;
 import com.mycompany.deliverysystem.repositories.RepositoryException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
  *
- * @author rafael,dominik
+ * @author rafael
  */
-public class PackageSorterFake implements PackageSorter{
-
-    private static final Logger LOGGER = Logger.getLogger(PackageSorterFake.class.getName());
+public class PackageSorterNearest implements PackageSorter{
+    
+    private static final Logger LOGGER = Logger.getLogger(PackageSorterNearest.class.getName());
+    
     private EntityManager entityManager;
     private DeliveryRegionRepository devRepo;
     
-    public PackageSorterFake(EntityManager entityManager)
+    public PackageSorterNearest(EntityManager entityManager)
     {
         this.entityManager = entityManager;
         devRepo = new DeliveryRegionRepositoryDB(entityManager);
     }
     
+    
     @Override
     public void sortPackage(DirectedPackage pack, double[] packageLocation) {
         try{
-            Iterable<DeliveryRegion> allRegions = devRepo.getAll();
-            if (allRegions == null)
-                LOGGER.severe("there are no regions in the db, so sorter cant assign");
-            else
-            {
-                for (DeliveryRegion region : allRegions)
-                {
-                    pack.setDeliveryRegion(region); // use the first region
-                    break;
-                }
-            }
+            DeliveryRegion closestRegion = devRepo.getClosestByLocation(packageLocation[0], packageLocation[1]);
+            pack.setDeliveryRegion(closestRegion);
             
-            LOGGER.info("package with id <" + pack.getId() + "> successfully sorted");
-        } 
+            LOGGER.info("sorted package successfully");
+        }
         catch(RepositoryException re)
         {
-            LOGGER.log(Level.SEVERE, "could not sort package with id<" + pack.getId() + ">", re);
+            LOGGER.log(Level.SEVERE, "Could not sort packages due to repository", re);
         }
     }
-    
 }

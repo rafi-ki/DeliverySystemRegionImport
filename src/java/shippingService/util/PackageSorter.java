@@ -7,13 +7,11 @@
 package shippingService.util;
 
 import com.mycompany.deliverysystem.entities.DirectedPackage;
-import java.util.List;
 
 /**
  *
  * @author rafael,dominik
  */
 public interface PackageSorter {
-    public void sortPackage(DirectedPackage pack);
-    public void sortPackages(List<DirectedPackage> packages);
+    public void sortPackage(DirectedPackage pack, double[] packageLocation);
 }
