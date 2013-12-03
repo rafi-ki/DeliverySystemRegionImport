@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author rafael
+ * @author rafael,dominik
  */
 public class PackageSorterNearest implements PackageSorter{
     
