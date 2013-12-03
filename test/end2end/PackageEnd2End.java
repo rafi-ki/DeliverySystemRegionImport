@@ -206,7 +206,7 @@ public class PackageEnd2End {
         soapElem.addNamespaceDeclaration("ns2", "http://schema.sksPackage.org/2013/DeliveryService");
         soapElem.addNamespaceDeclaration("ns3", "http://schemas.microsoft.com/2003/10/Serialization/");
         SOAPElement soapRegionKey = soapElem.addChildElement("regionKey");
-        soapRegionKey.setTextContent("100");
+        soapRegionKey.setTextContent("TrueRegion");
 
         soapMessage.saveChanges();
 

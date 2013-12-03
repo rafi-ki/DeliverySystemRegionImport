@@ -36,7 +36,7 @@ public class PackageSorterNearest implements PackageSorter{
     @Override
     public void sortPackage(DirectedPackage pack, double[] packageLocation) {
         try{
-            DeliveryRegion closestRegion = devRepo.getClosestByLocation(packageLocation[0], packageLocation[1]);
+            DeliveryRegion closestRegion = devRepo.getClosestByLocation(packageLocation[1], packageLocation[0]);
             pack.setDeliveryRegion(closestRegion);
             
             LOGGER.info("sorted package successfully");
