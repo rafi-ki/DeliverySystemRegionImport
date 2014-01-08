@@ -6,6 +6,7 @@
 
 package packageDeliveryService;
 
+import com.mycompany.deliverysystem.entities.DirectedPackage;
 import java.util.List;
 
 /**
@@ -14,4 +15,5 @@ import java.util.List;
  */
 public interface PackageChooser {
     public List<org.skspackage.schema._2013.deliveryservice.Package> getDevileredPackageByRegion(String regionId, List<org.skspackage.schema._2013.deliveryservice.Package> p);
+    public Iterable<DirectedPackage> getPackagesByRegionKey(String regionKey);
 }

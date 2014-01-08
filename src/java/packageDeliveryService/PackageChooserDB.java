@@ -29,13 +29,11 @@ import org.skspackage.schema._2013.deliveryservice.Package;
 public class PackageChooserDB implements PackageChooser{
     
     private static final Logger LOGGER = Logger.getLogger(PackageChooserDB.class.getName());
-    
-    private final EntityManager entityManager;
+   
     private final DirectedPackageRepository packageRepo;
     private final DeliveryRegionRepository devRepo;
     public PackageChooserDB(EntityManager entityManager)
     {
-        this.entityManager = entityManager;
         this.packageRepo = new DirectedPackageRepositoryDB(entityManager);
         this.devRepo = new DeliveryRegionRepositoryDB(entityManager);
     }
@@ -75,7 +73,20 @@ public class PackageChooserDB implements PackageChooser{
             LOGGER.log(Level.SEVERE, "Could not get list of Packages by specific region", re);
         }
         
-        
         return p;
+    }
+
+    @Override
+    public Iterable<DirectedPackage> getPackagesByRegionKey(String regionKey) {
+        try {
+            DeliveryRegion region = devRepo.getByExternalId(regionKey);
+            long regionId = region.getId();
+            Iterable<DirectedPackage> packagesByRegion = packageRepo.getDirectedPackageByRegionId(regionId);
+            return packagesByRegion;
+        } catch (RepositoryException ex) {
+            Logger.getLogger(PackageChooserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 }
