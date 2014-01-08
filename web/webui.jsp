@@ -4,6 +4,7 @@
     Author     : rafael
 --%>
 
+<%@page import="com.mycompany.deliverysystem.entities.DeliveryRegion"%>
 <%@page import="com.mycompany.deliverysystem.entities.DirectedPackage"%>
 <%@page import="weblogic.WebLogic"%>
 <%@page import="javax.persistence.Persistence"%>
@@ -17,14 +18,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Hello World</title>
+    <style>
+        .readonly {display:block}
+        .editfield {display:none}
+    </style>
 </head>
 <body>
-DeliverySystem WebGUI!<br/>
-
- <form action="configure.jsp" method="POST">
+    <h2> Packages </h2>
+    <div style="font-weight: bold">Display Packages:<div>
+ <form action="webui.jsp" method="POST">
         <input type="text" name="regionKey" />
         <input type="submit" value="show packages" />
-    </form>
+</form>
 <table border="0" cellpadding="3">
     <tbody>
     <%
@@ -54,8 +59,9 @@ DeliverySystem WebGUI!<br/>
    </table>
     
     <br>
+    <div style="font-weight: bold">Deliver Packages:</div>
     <!-- manual package shipping -->
-    <form action="configure.jsp" method="POST">
+    <form action="webui.jsp" method="POST">
         <input type="text" name="regionKeyForDeliver" />
         <input type="submit" value="deliver packages" />
     </form>
@@ -73,5 +79,35 @@ DeliverySystem WebGUI!<br/>
             out.print("</b>");
         }
     %>
+    
+    <h2>Regions</h2>
+    <div style="font-weight: bold">Edit Regions:</div>
+    <table cellpadding="3">
+        <tbody>
+        <th>RegionId</th><th>ExternalId</th><th>Longitude</th><th>Latitude</th>
+            <%
+                Iterable<DeliveryRegion> regions = weblogic.getDeliveryRegions();
+                String div = "";
+                String input = "";
+                for (DeliveryRegion region : regions)
+                {
+                    out.print("<tr>");
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getId()), "id", String.valueOf(region.getId()));
+                    input = weblogic.getEditField(String.valueOf(region.getId()), "id", String.valueOf(region.getId()));
+                    out.print("<td>" + div + input + "</td>");
+                    div = weblogic.getReadOnlyDiv(region.getExternal_id(), "externalid", region.getExternal_id());
+                    input = weblogic.getEditField(region.getExternal_id(), "externalid", region.getExternal_id());
+                    out.print("<td>" + div + input + "</td>");
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getLongitude()), "longitude", String.valueOf(region.getLongitude()));
+                    input = weblogic.getEditField(String.valueOf(region.getLongitude()), "longitude", String.valueOf(region.getLongitude()));
+                    out.print("<td>" + div + input + "</td>");
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getLatitude()), "latitude", String.valueOf(region.getLatitude()));
+                    input = weblogic.getEditField(String.valueOf(region.getLatitude()), "latitude", String.valueOf(region.getLatitude()));
+                    out.print("<td>" + div + input + "</td>");
+                    out.print("</tr>");
+                }
+            %>
+        </tbody>
+    </table>
 </body>
 </html>
