@@ -152,5 +152,11 @@
             %>
         </tbody>
     </table>
+        
+   <div style="font-weight: bold">Upload Regions:</div>
+   <form id="uploadForm" action="webui.jsp" method="POST">
+       <input type="file" name="file" id="file" />
+       <input type="submit" value="upload" />
+   </form>
 </body>
 </html>
