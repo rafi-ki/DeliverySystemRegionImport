@@ -18,9 +18,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Hello World</title>
+    <script src="webui.js" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <style>
         .readonly {display:block}
         .editfield {display:none}
+        .cancel {display:none}
+        .commit {display:none}
     </style>
 </head>
 <body>
@@ -80,8 +84,41 @@
         }
     %>
     
+    
+    <%
+            String updateId = request.getParameter("changedId");
+            String method = request.getParameter("method");
+            if (updateId != null && method != null)
+            {
+                if (method.equals("delete"))
+                {
+                    // TODO delete
+                    String regionId = updateId;
+                    weblogic.deleteRegion(regionId);
+                }
+                else
+                {
+                    String regionId = updateId;
+                    String externalId = request.getParameter("externalId");
+                    String longitude = request.getParameter("longitude");
+                    String latitude = request.getParameter("latitude");
+                    
+                    weblogic.updateRegion(regionId, externalId, longitude, latitude);
+                }
+                out.print("update Id is " + updateId);
+                out.print(" method is " + method);
+            }
+        %>
     <h2>Regions</h2>
+     
     <div style="font-weight: bold">Edit Regions:</div>
+    <form id="regionForm" action="webui.jsp" method="POST">
+        <input id="regionForm_id" type="hidden" name="changedId" />
+        <input id="regionForm_method" type="hidden" name="method" />
+        <input id="regionForm_externalId" type="hidden" name="externalId" />
+        <input id="regionForm_longitude" type="hidden" name="longitude" />
+        <input id="regionForm_latitude" type="hidden" name="latitude" />
+    </form>
     <table cellpadding="3">
         <tbody>
         <th>RegionId</th><th>ExternalId</th><th>Longitude</th><th>Latitude</th>
@@ -95,15 +132,21 @@
                     div = weblogic.getReadOnlyDiv(String.valueOf(region.getId()), "id", String.valueOf(region.getId()));
                     input = weblogic.getEditField(String.valueOf(region.getId()), "id", String.valueOf(region.getId()));
                     out.print("<td>" + div + input + "</td>");
-                    div = weblogic.getReadOnlyDiv(region.getExternal_id(), "externalid", region.getExternal_id());
-                    input = weblogic.getEditField(region.getExternal_id(), "externalid", region.getExternal_id());
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getId()), "externalId", region.getExternal_id());
+                    input = weblogic.getEditField(String.valueOf(region.getId()), "externalId", region.getExternal_id());
                     out.print("<td>" + div + input + "</td>");
-                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getLongitude()), "longitude", String.valueOf(region.getLongitude()));
-                    input = weblogic.getEditField(String.valueOf(region.getLongitude()), "longitude", String.valueOf(region.getLongitude()));
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getId()), "longitude", String.valueOf(region.getLongitude()));
+                    input = weblogic.getEditField(String.valueOf(region.getId()), "longitude", String.valueOf(region.getLongitude()));
                     out.print("<td>" + div + input + "</td>");
-                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getLatitude()), "latitude", String.valueOf(region.getLatitude()));
-                    input = weblogic.getEditField(String.valueOf(region.getLatitude()), "latitude", String.valueOf(region.getLatitude()));
+                    div = weblogic.getReadOnlyDiv(String.valueOf(region.getId()), "latitude", String.valueOf(region.getLatitude()));
+                    input = weblogic.getEditField(String.valueOf(region.getId()), "latitude", String.valueOf(region.getLatitude()));
                     out.print("<td>" + div + input + "</td>");
+                    
+                    //buttons
+                    out.print("<td> <input type='button' id='edit_" + region.getId() + "' value='edit' onClick='editRow(" + region.getId() + ");'");
+                    out.print("<td> <input type='button' id='delete_" + region.getId() + "' value='delete' onClick='prepareAndSubmit(" + region.getId() + ", true);'");
+                    out.print("<td> <input class='commit' type='button' id='commit_" + region.getId() + "' value='commit' onClick='prepareAndSubmit(" + region.getId() + ", false);'");
+                    out.print("<td> <input class='cancel' type='button' id='cancel_" + region.getId() + "' value='cancel' onClick='cancelEditRow(" + region.getId() + ");'");
                     out.print("</tr>");
                 }
             %>

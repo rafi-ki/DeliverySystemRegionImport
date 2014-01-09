@@ -14,5 +14,6 @@ import com.mycompany.deliverysystem.entities.DeliveryRegion;
  */
 public interface DeliveryRegionService {
     public Iterable<DeliveryRegion> getAllDeliveryRegions();
-    public void updateAndReorderDeliveryRegion(long regionId, DeliveryRegion region);
+    public boolean updateAndReorderDeliveryRegion(long regionId, DeliveryRegion region);
+    public boolean deleteRegion(long regionId);
 }

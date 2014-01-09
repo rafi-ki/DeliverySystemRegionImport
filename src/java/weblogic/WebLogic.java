@@ -85,4 +85,22 @@ public class WebLogic {
         sb.append("<input type='text' id='" + id + "_" + type + "_input' class='editfield' value='" + content + "'/>");
         return sb.toString();
     }
+    
+    public void updateRegion(String id, String externalId, String longitude, String latitude)
+    {
+        System.out.println(longitude + ", " + latitude + ", " + externalId);
+        DeliveryRegion region = new DeliveryRegion();
+        region.setId(Long.parseLong(id));
+        region.setExternal_id(externalId);
+        region.setLongitude(Double.parseDouble(longitude));
+        region.setLatitude(Double.parseDouble(latitude));
+        
+        regionService.updateAndReorderDeliveryRegion(Long.parseLong(id), region);
+    }
+    
+    public void deleteRegion(String id)
+    {
+        long regionId = Long.parseLong(id);
+        regionService.deleteRegion(regionId);
+    }
 }
