@@ -4,6 +4,9 @@
     Author     : rafael
 --%>
 
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.Reader"%>
+<%@page import="java.io.InputStreamReader"%>
 <%@page import="com.mycompany.deliverysystem.entities.DeliveryRegion"%>
 <%@page import="com.mycompany.deliverysystem.entities.DirectedPackage"%>
 <%@page import="weblogic.WebLogic"%>
@@ -88,12 +91,26 @@
     <h2>Regions</h2>
 
     <div style="font-weight: bold">Upload Regions:</div>
-   <form id="uploadForm" action="webui.jsp" method="POST">
+   <form id="uploadForm" action="webui.jsp" method="POST" enctype="multipart/form-data">
        <input type="file" name="file" id="file" />
+       <input type="hidden" name="uploadIndicator" value="true" />
        <input type="submit" value="upload" />
    </form>
    <%
-        
+        if (request.getParameter("uploadIndicator") != null)
+        {
+            Part filePart = request.getPart("file");
+            StringBuilder sb = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(filePart.getInputStream(), "UTF-8"));
+            String read = reader.readLine();
+            
+            while(read != null) {
+                sb.append(read);
+                read =reader.readLine();
+            }
+            
+            weblogic.addRegions(sb.toString());
+        }
    %>
    <br />
     <div style="font-weight: bold">Edit Regions:</div>

@@ -14,8 +14,19 @@ import com.mycompany.deliverysystem.repositories.DirectedPackageRepository;
 import com.mycompany.deliverysystem.repositories.DirectedPackageRepositoryDB;
 import deliveryRegion.DeliveryRegionService;
 import deliveryRegion.DeliveryRegionServiceDB;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -102,5 +113,41 @@ public class WebLogic {
     {
         long regionId = Long.parseLong(id);
         regionService.deleteRegion(regionId);
+    }
+    
+    public void addRegions(String xml)
+    {
+        // TODO implement
+        URL url;
+        try {
+            url = new URL("http://localhost:8080/DeliverySystemRegionImport/webresources/import");
+            URLConnection connection = url.openConnection();
+            HttpURLConnection httpConn = (HttpURLConnection) connection;
+
+            byte[] requestXML = xml.getBytes();
+
+            // Set the appropriate HTTP parameters.
+            httpConn.setRequestProperty("Content-Length", String.valueOf(requestXML.length));
+            httpConn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
+            httpConn.setRequestMethod("POST");
+            httpConn.setDoOutput(true);
+            httpConn.setDoInput(true);
+
+            // Send the String that was read into postByte.
+            OutputStream out = httpConn.getOutputStream();
+            out.write(requestXML);
+            out.close();
+
+            // Read the response and write it to standard out.
+           InputStreamReader isr = new InputStreamReader(httpConn.getInputStream());
+   
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(WebLogic.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(WebLogic.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
