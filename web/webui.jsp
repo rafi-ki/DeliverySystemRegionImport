@@ -85,7 +85,27 @@
     %>
     
     
-    <%
+    <h2>Regions</h2>
+
+    <div style="font-weight: bold">Upload Regions:</div>
+   <form id="uploadForm" action="webui.jsp" method="POST">
+       <input type="file" name="file" id="file" />
+       <input type="submit" value="upload" />
+   </form>
+   <%
+        
+   %>
+   <br />
+    <div style="font-weight: bold">Edit Regions:</div>
+    <form id="regionForm" action="webui.jsp" method="POST">
+        <input id="regionForm_id" type="hidden" name="changedId" />
+        <input id="regionForm_method" type="hidden" name="method" />
+        <input id="regionForm_externalId" type="hidden" name="externalId" />
+        <input id="regionForm_longitude" type="hidden" name="longitude" />
+        <input id="regionForm_latitude" type="hidden" name="latitude" />
+    </form>
+    
+     <%
             String updateId = request.getParameter("changedId");
             String method = request.getParameter("method");
             if (updateId != null && method != null)
@@ -109,16 +129,6 @@
                 out.print(" method is " + method);
             }
         %>
-    <h2>Regions</h2>
-     
-    <div style="font-weight: bold">Edit Regions:</div>
-    <form id="regionForm" action="webui.jsp" method="POST">
-        <input id="regionForm_id" type="hidden" name="changedId" />
-        <input id="regionForm_method" type="hidden" name="method" />
-        <input id="regionForm_externalId" type="hidden" name="externalId" />
-        <input id="regionForm_longitude" type="hidden" name="longitude" />
-        <input id="regionForm_latitude" type="hidden" name="latitude" />
-    </form>
     <table cellpadding="3">
         <tbody>
         <th>RegionId</th><th>ExternalId</th><th>Longitude</th><th>Latitude</th>
@@ -153,10 +163,5 @@
         </tbody>
     </table>
         
-   <div style="font-weight: bold">Upload Regions:</div>
-   <form id="uploadForm" action="webui.jsp" method="POST">
-       <input type="file" name="file" id="file" />
-       <input type="submit" value="upload" />
-   </form>
 </body>
 </html>
